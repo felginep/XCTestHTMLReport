@@ -18,10 +18,7 @@ Xcode-like HTML report for Unit and UI Tests
 - Displays information about the target device
 - Displays activity logs
 - Junit report
-
-## Fastlane Support
-
-https://github.com/TitouanVanBelle/fastlane-plugin-xchtmlreport
+- XCode 11 support
 
 ## Installation
 
@@ -64,7 +61,7 @@ Then use the previously downloaded xchtmlreport tool to create the HTML report
 ``` bash
 $ xchtmlreport -r TestResults
 
-Report successfully created at TestResults/index.html
+Report successfully created at index.html
 ```
 
 ### Multiple Result Bundle Path
@@ -74,7 +71,7 @@ You can also pass multiple times the -r option.
 ``` bash
 $ xchtmlreport -r TestResults1 -r TestResults2
 
-Report successfully created at TestResults1/index.html
+Report successfully created at index.html
 ```
 
 This will create only one HTML Report in the path you passed with the -r option

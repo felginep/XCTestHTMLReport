@@ -5,7 +5,7 @@ set -e
 VERSION=$1
 
 if [ -z $VERSION ] ; then
-VERSION="1.7.3"
+VERSION="2.0.0"
 fi
 
 OUT_ZIP="xchtmlreport.zip"
@@ -26,10 +26,10 @@ unzip $OUT_ZIP
 BUILD_DIR="XCTestHTMLReport-$VERSION"
 
 cd $BUILD_DIR
-xcodebuild clean build CODE_SIGNING_REQUIRED=NO -workspace XCTestHTMLReport.xcworkspace -scheme XCTestHTMLReport -configuration Release
+swift build -c release
 
-chmod 755 xchtmlreport
-mv xchtmlreport /usr/local/bin/
+chmod 755 .build/release/xchtmlreport
+mv .build/release/xchtmlreport /usr/local/bin/
 
 cd ".."
 rm $OUT_ZIP
