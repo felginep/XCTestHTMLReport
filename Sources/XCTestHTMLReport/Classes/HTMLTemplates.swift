@@ -966,7 +966,7 @@ struct HTMLTemplates
           <li onclick=\"showApplicationLogs(this);\">App Logs</li>
         </ul>
       </div>
-      <iframe id=\"logs-iframe\" src=\"[[LOG_PATH]]\"></iframe>
+      <iframe id=\"test-logs-iframe\" src=\"[[LOG_PATH]]\"></iframe>
     </div>
     <div id=\"design-review\">
         [[TEST_DESIGN_REVIEW]]
