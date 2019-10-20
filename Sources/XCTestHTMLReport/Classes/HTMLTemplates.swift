@@ -1037,7 +1037,7 @@ struct HTMLTemplates
 
   static let designReviewScreenshot = """
   <p class=\"design_review_item list-item\">
-      <img class=\"design_review_screenshot\" src=\"[[PATH]]/Attachments/[[FILENAME]]\" id=\"screenshot-[[FILENAME]]\" style=\"margin-bottom: 4px\" />
+      <img class=\"design_review_screenshot\" src=\"[[PATH]]\" id=\"screenshot-[[FILENAME]]\" style=\"margin-bottom: 4px\" />
       [[NAME]]
   </p>
   """

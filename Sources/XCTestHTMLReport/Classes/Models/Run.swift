@@ -13,6 +13,7 @@ struct Run: HTML
 {
     let runDestination: RunDestination
     let testSummaries: [TestSummary]
+    let designReviews: [DesignReview]
     let logPath: String
     var status: Status {
        return testSummaries.reduce(true, { (accumulator: Bool, summary: TestSummary) -> Bool in
@@ -60,6 +61,7 @@ struct Run: HTML
         self.testSummaries = testPlanSummaries.summaries
             .flatMap { $0.testableSummaries }
             .map { TestSummary(summary: $0, file: file) }
+        self.designReviews = testSummaries.map(DesignReview.init)
     }
 
     // PRAGMA MARK: - HTML
@@ -73,7 +75,8 @@ struct Run: HTML
             "N_OF_TESTS": String(numberOfTests),
             "N_OF_PASSED_TESTS": String(numberOfPassedTests),
             "N_OF_FAILED_TESTS": String(numberOfFailedTests),
-            "TEST_SUMMARIES": testSummaries.map { $0.html }.joined()
+            "TEST_SUMMARIES": testSummaries.map { $0.html }.joined(),
+            "TEST_DESIGN_REVIEW": designReviews.map { $0.html }.joined()
         ]
     }
 
