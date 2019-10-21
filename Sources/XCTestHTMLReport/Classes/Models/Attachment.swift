@@ -10,7 +10,7 @@ import Foundation
 import XCResultKit
 
 enum AttachmentType: String {
-    case unknwown = ""
+    case unknown = ""
     case data = "public.data"
     case html = "public.html"
     case jpeg = "public.jpeg"
@@ -66,11 +66,11 @@ struct Attachment: HTML
 
     init(attachment: ActionTestAttachment, file: ResultFile, padding: Int = 0) {
         self.filename = attachment.filename ?? ""
-        self.type = AttachmentType(rawValue: attachment.uniformTypeIdentifier) ?? .unknwown
+        self.type = AttachmentType(rawValue: attachment.uniformTypeIdentifier) ?? .unknown
         self.name = attachment.name.map(AttachmentName.init(rawValue:))
         if let id = attachment.payloadRef?.id,
             let url = file.exportPayload(id: id) {
-            self.path = url.relativePath
+            self.path = url.lastPathComponent
         } else {
             self.path = ""
         }
@@ -83,7 +83,7 @@ struct Attachment: HTML
             return "Screenshot"
         case .text, .html, .data:
             return "File"
-        case .unknwown:
+        case .unknown:
             return "Attachment"
         }
     }
@@ -105,7 +105,7 @@ struct Attachment: HTML
             return HTMLTemplates.screenshot
         case .text, .html, .data:
             return HTMLTemplates.text
-        case .unknwown:
+        case .unknown:
             return ""
         }
     }

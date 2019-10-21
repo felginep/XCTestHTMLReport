@@ -32,7 +32,6 @@ let html = summary.html
 
 do {
     let path = result.values.first!
-        .dropLastPathComponent()
         .addPathComponent("index.html")
     Logger.substep("Writing report to \(path)")
 
