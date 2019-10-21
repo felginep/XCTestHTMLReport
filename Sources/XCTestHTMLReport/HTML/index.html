@@ -210,6 +210,29 @@
         display: flex;
         flex: 1;
         flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .design_review_activity {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .design_review_activity .activity_name {
+        background-color: white;
+        border-bottom: 1px solid #EEE;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .design_review_activity .activity_name .drop-down-icon {
+        margin-top: 7px;
+    }
+
+    .design_review_screenshots {
+        display: flex;
+        flex: 1;
+        flex-wrap: wrap;
     }
 
     .design_review_item {
@@ -784,12 +807,18 @@
       el.classList.toggle('dropped');
       var activities = document.getElementById('activities-'+id);
       var attachments = document.getElementById('attachments-'+id);
+      var designReviewActivities = document.getElementById('design-review-'+id);
       if (activities) {
         activities.style.display = (activities.style.display == 'block' ? 'none' : 'block');
       }
 
       if (attachments) {
         attachments.style.display = (attachments.style.display == 'block' ? 'none' : 'block');
+      }
+
+      if (designReviewActivities) {
+        var currentDisplay = window.getComputedStyle(document.getElementById('design-review-'+id)).display;
+        designReviewActivities.style.display = (currentDisplay == 'flex' ? 'none' : 'flex');
       }
     }
 
