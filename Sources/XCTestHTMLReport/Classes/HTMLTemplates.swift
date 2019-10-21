@@ -216,6 +216,29 @@ struct HTMLTemplates
         display: flex;
         flex: 1;
         flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .design_review_activity {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .design_review_activity .activity_name {
+        background-color: white;
+        border-bottom: 1px solid #EEE;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .design_review_activity .activity_name .drop-down-icon {
+        margin-top: 7px;
+    }
+
+    .design_review_screenshots {
+        display: flex;
+        flex: 1;
+        flex-wrap: wrap;
     }
 
     .design_review_item {
@@ -790,12 +813,18 @@ struct HTMLTemplates
       el.classList.toggle('dropped');
       var activities = document.getElementById('activities-'+id);
       var attachments = document.getElementById('attachments-'+id);
+      var designReviewActivities = document.getElementById('design-review-'+id);
       if (activities) {
         activities.style.display = (activities.style.display == 'block' ? 'none' : 'block');
       }
 
       if (attachments) {
         attachments.style.display = (attachments.style.display == 'block' ? 'none' : 'block');
+      }
+
+      if (designReviewActivities) {
+        var currentDisplay = window.getComputedStyle(document.getElementById('design-review-'+id)).display;
+        designReviewActivities.style.display = (currentDisplay == 'flex' ? 'none' : 'flex');
       }
     }
 
@@ -982,7 +1011,16 @@ struct HTMLTemplates
 
   static let testDesignReview = """
   <div class=\"design_review\" id=\"[[UUID]]\">
+      [[DESIGN_REVIEW_ACTIVITIES]]
+  </div>
+  """
+
+  static let testDesignReviewActivity = """
+  <div class=\"design_review_activity\">
+    <h3 class=\"activity_name\"><span class=\"icon left drop-down-icon dropped\" onclick=\"toggle(this, '[[UUID]]')\"></span>[[NAME]]</h3>
+    <div class=\"design_review_screenshots\" id=\"design-review-[[UUID]]\">
       [[DESIGN_REVIEW_SCREENSHOTS]]
+    </div>
   </div>
   """
 

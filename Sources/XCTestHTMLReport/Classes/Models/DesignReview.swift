@@ -9,14 +9,14 @@ import Foundation
 
 struct DesignReview: HTML
 {
-    private let attachments: [Attachment]
+    private let activities: [DesignReviewActivity]
 
     init(summary: TestSummary) {
-        self.attachments = summary.tests
+        self.activities = summary.tests
             .flatMap { $0.allSubTests }
             .flatMap { $0.activities }
-            .flatMap { $0.attachments }
-            .filter { $0.type == .png || $0.type == .jpeg }
+            .filter { !$0.attachments.isEmpty }
+            .map(DesignReviewActivity.init)
     }
 
     // PRAGMA MARK: - HTML
@@ -26,8 +26,7 @@ struct DesignReview: HTML
     var htmlPlaceholderValues: [String: String] {
         return [
             "UUID": NSUUID().uuidString,
-            "DESIGN_REVIEW_SCREENSHOTS": attachments
-                .map(DesignReviewScreenshot.init)
+            "DESIGN_REVIEW_ACTIVITIES": activities
                 .map { $0.html }
                 .joined()
         ]
