@@ -39,7 +39,7 @@ struct Run: HTML
         return allTests.filter { $0.status == .failure }.count
     }
 
-    init?(action: ActionRecord, file: ResultFile) {
+    init?(action: ActionRecord, file: ResultFile, renderingMode: Summary.RenderingMode) {
         self.runDestination = RunDestination(record: action.runDestination)
 
         guard
@@ -60,7 +60,7 @@ struct Run: HTML
         }
         self.testSummaries = testPlanSummaries.summaries
             .flatMap { $0.testableSummaries }
-            .map { TestSummary(summary: $0, file: file) }
+            .map { TestSummary(summary: $0, file: file, renderingMode: renderingMode) }
         self.designReviews = testSummaries.map(DesignReview.init)
     }
 
