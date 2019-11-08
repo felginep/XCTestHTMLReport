@@ -113,7 +113,7 @@ struct Attachment: HTML
         return url?.relativePath
     }
 
-    var src: String? {
+    var source: String? {
         switch renderingMode {
         case .inline: return base64data
         case .linking: return path
@@ -154,7 +154,7 @@ struct Attachment: HTML
     var htmlPlaceholderValues: [String: String] {
         return [
             "PADDING": String(padding),
-            "SRC": src ?? "",
+            "SOURCE": source ?? "",
             "FILENAME": filename,
             "NAME": displayName
         ]

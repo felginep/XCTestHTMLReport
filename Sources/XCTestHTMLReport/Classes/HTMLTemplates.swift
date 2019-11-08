@@ -5,7 +5,7 @@ struct HTMLTemplates
 {
     static let designReviewScreenshot = """
   <p class=\"design_review_item list-item\">
-      <img class=\"design_review_screenshot\" src=\"[[PATH]]\" id=\"screenshot-[[FILENAME]]\" style=\"margin-bottom: 4px\" />
+      <img class=\"design_review_screenshot\" src=\"[[SOURCE]]\" id=\"screenshot-[[FILENAME]]\" style=\"margin-bottom: 4px\" />
       [[NAME]]
   </p>
   """
@@ -1093,7 +1093,7 @@ struct HTMLTemplates
     <span class=\"icon left screenshot-icon\" style=\"margin-left: [[PADDING]]px\"></span>
     [[NAME]]
     <span class=\"icon preview-icon\" data=\"[[FILENAME]]\" onclick=\"showScreenshot('[[FILENAME]]')\"></span>
-    <img class=\"screenshot\" src=\"[[PATH]]\" id=\"screenshot-[[FILENAME]]\"/>
+    <img class=\"screenshot\" src=\"[[SOURCE]]\" id=\"screenshot-[[FILENAME]]\"/>
   </p>
   """
 
