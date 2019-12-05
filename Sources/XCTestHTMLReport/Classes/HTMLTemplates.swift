@@ -61,6 +61,12 @@ struct HTMLTemplates
       <iframe id=\"test-logs-iframe\" src=\"[[LOG_PATH]]\"></iframe>
     </div>
     <div id=\"design-review\">
+        <div>
+          <ul class=\"toolbar toggle-toolbar\">
+            <li id=\"collapse_all\" onclick=\"collapseAllDesignReviews();\">Collapse All</li>
+            <li id=\"expand_all\" onclick=\"expandAllDesignReviews();\">Expand All</li>
+          </ul>
+        </div>
         [[TEST_DESIGN_REVIEW]]
     </div>
   </div>
@@ -693,6 +699,8 @@ struct HTMLTemplates
     screenshot = document.getElementById('screenshot'),
     iframe = document.getElementById('text-attachment');
 
+    updateDesignReviewToggleState();
+
     for (var i = 0; i < resizers.length; i++) {
         resizers[i].addEventListener('mousedown', initDrag, false);
     }
@@ -888,6 +896,7 @@ struct HTMLTemplates
       if (designReviewActivities) {
         var currentDisplay = window.getComputedStyle(document.getElementById('design-review-'+id)).display;
         designReviewActivities.style.display = (currentDisplay == 'flex' ? 'none' : 'flex');
+        updateDesignReviewToggleState();
       }
     }
 
@@ -1016,6 +1025,59 @@ struct HTMLTemplates
         selectedElement(el);
         showElementsWithSelector('#app-logs-iframe');
         hideElementsWithSelector('#test-logs-iframe');
+    }
+
+    function collapseAllDesignReviews() {
+        activateAllDesignReviews(function(el) {
+            return el.classList.contains('dropped')
+        });
+    }
+
+    function expandAllDesignReviews() {
+        activateAllDesignReviews(function(el) {
+            return !el.classList.contains('dropped')
+        });
+    }
+
+    function activateAllDesignReviews(predicate) {
+        document
+            .querySelectorAll('.design_review_activity .activity_name span')
+            .forEach(function(el) {
+                if (predicate(el)) {
+                    el.onclick()
+                }
+            });
+        updateDesignReviewToggleState();
+    }
+
+    function updateDesignReviewToggleState() {
+        updateCollapseAllSelectedState();
+        updateExpandAllSelectedState();
+    }
+
+    function updateCollapseAllSelectedState() {
+        updateDesignReviewToggleSelectedState('collapse_all', function(el) {
+            return !el.classList.contains('dropped');
+        });
+    }
+
+    function updateExpandAllSelectedState() {
+        updateDesignReviewToggleSelectedState('expand_all', function(el) {
+            return el.classList.contains('dropped');
+        });
+    }
+
+    function updateDesignReviewToggleSelectedState(id, predicate) {
+        let shouldSelect = Array
+        .from(
+            document.querySelectorAll('.design_review_activity .activity_name span')
+        )
+        .every(predicate);
+        if (shouldSelect) {
+            document.getElementById(id).classList.add('selected');
+        } else {
+            document.getElementById(id).classList.remove('selected');
+        }
     }
 
     document.querySelectorAll('.device-info')[0].classList.add(\"selected\");
