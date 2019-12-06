@@ -5,6 +5,8 @@
     screenshot = document.getElementById('screenshot'),
     iframe = document.getElementById('text-attachment');
 
+    updateDesignReviewToggleState();
+
     for (var i = 0; i < resizers.length; i++) {
         resizers[i].addEventListener('mousedown', initDrag, false);
     }
@@ -200,6 +202,7 @@
       if (designReviewActivities) {
         var currentDisplay = window.getComputedStyle(document.getElementById('design-review-'+id)).display;
         designReviewActivities.style.display = (currentDisplay == 'flex' ? 'none' : 'flex');
+        updateDesignReviewToggleState();
       }
     }
 
@@ -328,6 +331,59 @@
         selectedElement(el);
         showElementsWithSelector('#app-logs-iframe');
         hideElementsWithSelector('#test-logs-iframe');
+    }
+
+    function collapseAllDesignReviews() {
+        activateAllDesignReviews(isDropped);
+    }
+
+    function expandAllDesignReviews() {
+        activateAllDesignReviews(isNotDropped);
+    }
+
+    function activateAllDesignReviews(predicate) {
+        document
+            .querySelectorAll('.design_review_activity .activity_name span')
+            .forEach(function(el) {
+                if (predicate(el)) {
+                    el.onclick()
+                }
+            });
+        updateDesignReviewToggleState();
+    }
+
+    function updateDesignReviewToggleState() {
+        updateCollapseAllSelectedState();
+        updateExpandAllSelectedState();
+    }
+
+    function updateCollapseAllSelectedState() {
+        updateDesignReviewToggleSelectedState('collapse_all', isNotDropped);
+    }
+
+    function updateExpandAllSelectedState() {
+        updateDesignReviewToggleSelectedState('expand_all', isDropped);
+    }
+
+    function isDropped(el) {
+        return el.classList.contains('dropped');
+    }
+
+    function isNotDropped(el) {
+        return !el.classList.contains('dropped');
+    }
+
+    function updateDesignReviewToggleSelectedState(id, predicate) {
+        let shouldSelect = Array
+        .from(
+            document.querySelectorAll('.design_review_activity .activity_name span')
+        )
+        .every(predicate);
+        if (shouldSelect) {
+            document.getElementById(id).classList.add('selected');
+        } else {
+            document.getElementById(id).classList.remove('selected');
+        }
     }
 
     document.querySelectorAll('.device-info')[0].classList.add("selected");

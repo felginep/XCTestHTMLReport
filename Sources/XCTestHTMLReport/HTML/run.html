@@ -23,6 +23,12 @@
       <iframe id="test-logs-iframe" src="[[LOG_PATH]]"></iframe>
     </div>
     <div id="design-review">
+        <div>
+          <ul class="toolbar toggle-toolbar">
+            <li id="collapse_all" onclick="collapseAllDesignReviews();">Collapse All</li>
+            <li id="expand_all" onclick="expandAllDesignReviews();">Expand All</li>
+          </ul>
+        </div>
         [[TEST_DESIGN_REVIEW]]
     </div>
   </div>
