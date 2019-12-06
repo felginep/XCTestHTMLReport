@@ -1028,15 +1028,11 @@ struct HTMLTemplates
     }
 
     function collapseAllDesignReviews() {
-        activateAllDesignReviews(function(el) {
-            return el.classList.contains('dropped')
-        });
+        activateAllDesignReviews(isDropped);
     }
 
     function expandAllDesignReviews() {
-        activateAllDesignReviews(function(el) {
-            return !el.classList.contains('dropped')
-        });
+        activateAllDesignReviews(isNotDropped);
     }
 
     function activateAllDesignReviews(predicate) {
@@ -1056,9 +1052,7 @@ struct HTMLTemplates
     }
 
     function updateCollapseAllSelectedState() {
-        updateDesignReviewToggleSelectedState('collapse_all', function(el) {
-            return !isDropped(el);
-        });
+        updateDesignReviewToggleSelectedState('collapse_all', isNotDropped);
     }
 
     function updateExpandAllSelectedState() {
@@ -1067,6 +1061,10 @@ struct HTMLTemplates
 
     function isDropped(el) {
         return el.classList.contains('dropped');
+    }
+
+    function isNotDropped(el) {
+        return !el.classList.contains('dropped');
     }
 
     function updateDesignReviewToggleSelectedState(id, predicate) {

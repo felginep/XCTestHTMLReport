@@ -334,15 +334,11 @@
     }
 
     function collapseAllDesignReviews() {
-        activateAllDesignReviews(function(el) {
-            return el.classList.contains('dropped')
-        });
+        activateAllDesignReviews(isDropped);
     }
 
     function expandAllDesignReviews() {
-        activateAllDesignReviews(function(el) {
-            return !el.classList.contains('dropped')
-        });
+        activateAllDesignReviews(isNotDropped);
     }
 
     function activateAllDesignReviews(predicate) {
@@ -362,9 +358,7 @@
     }
 
     function updateCollapseAllSelectedState() {
-        updateDesignReviewToggleSelectedState('collapse_all', function(el) {
-            return !isDropped(el);
-        });
+        updateDesignReviewToggleSelectedState('collapse_all', isNotDropped);
     }
 
     function updateExpandAllSelectedState() {
@@ -373,6 +367,10 @@
 
     function isDropped(el) {
         return el.classList.contains('dropped');
+    }
+
+    function isNotDropped(el) {
+        return !el.classList.contains('dropped');
     }
 
     function updateDesignReviewToggleSelectedState(id, predicate) {
