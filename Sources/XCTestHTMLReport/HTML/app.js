@@ -363,14 +363,16 @@
 
     function updateCollapseAllSelectedState() {
         updateDesignReviewToggleSelectedState('collapse_all', function(el) {
-            return !el.classList.contains('dropped');
+            return !isDropped(el);
         });
     }
 
     function updateExpandAllSelectedState() {
-        updateDesignReviewToggleSelectedState('expand_all', function(el) {
-            return el.classList.contains('dropped');
-        });
+        updateDesignReviewToggleSelectedState('expand_all', isDropped);
+    }
+
+    function isDropped(el) {
+        return el.classList.contains('dropped');
     }
 
     function updateDesignReviewToggleSelectedState(id, predicate) {
