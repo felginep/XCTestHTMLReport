@@ -27,7 +27,7 @@ struct DesignReviewActivity: HTML
             "UUID": uuid,
             "NAME": activity.title,
             "DESIGN_REVIEW_SCREENSHOTS": activity
-                .attachments
+                .imageAttachments
                 .map(DesignReviewScreenshot.init)
                 .map { $0.html }
                 .joined()

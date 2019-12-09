@@ -70,6 +70,9 @@ struct Activity: HTML
 
         return cls
     }
+    var imageAttachments: [Attachment] {
+        return attachments.filter { $0.isImage }
+    }
 
     init(summary: ActionTestActivitySummary, file: ResultFile, padding: Int = 0) {
         self.uuid = summary.uuid
