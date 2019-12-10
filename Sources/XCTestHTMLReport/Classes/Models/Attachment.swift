@@ -96,6 +96,15 @@ struct Attachment: HTML
             return fallbackDisplayName
         }
     }
+
+    var isImage: Bool {
+        switch type {
+        case .png, .jpeg:
+            return true
+        case .text, .html, .data, .unknwown:
+            return false
+        }
+    }
     
     // PRAGMA MARK: - HTML
 

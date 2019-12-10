@@ -15,7 +15,7 @@ struct DesignReview: HTML
         self.activities = summary.tests
             .flatMap { $0.allSubTests }
             .flatMap { $0.activities }
-            .filter { !$0.attachments.isEmpty }
+            .filter { !$0.imageAttachments.isEmpty }
             .map(DesignReviewActivity.init)
     }
 
