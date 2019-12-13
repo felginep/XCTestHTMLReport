@@ -17,7 +17,7 @@ var junit = BlockArgument("j", "junit", required: false, helpMessage: "Provide J
     junitEnabled = true
 }
 var result = ValueArgument(.path, "r", "resultBundlePath", required: true, allowsMultiple: true, helpMessage: "Path to a result bundle (allows multiple)")
-var renderingMode = Summary.RenderingMode.linking
+var renderingMode: RenderingMode = .linking
 var inlineAssets = BlockArgument("i", "inlineAssets", required: false, helpMessage: "Inline all assets in the resulting html-file, making it heavier, but more portable") {
     renderingMode = .inline
 }
@@ -29,7 +29,8 @@ if !command.isValid {
     exit(EXIT_FAILURE)
 }
 
-let summary = Summary(resultPaths: result.values, renderingMode: renderingMode)
+let configuration = Configuration(renderingMode: renderingMode)
+let summary = Summary(resultPaths: result.values, configuration: configuration)
 
 Logger.step("Building HTML..")
 let html = summary.html

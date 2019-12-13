@@ -97,7 +97,7 @@ class ResultFile {
 extension ResultFile {
 
     func exportPayloadContent(id: String,
-                              renderingMode: Summary.RenderingMode) -> RenderingContent {
+                              renderingMode: RenderingMode) -> RenderingContent {
         switch renderingMode {
         case .inline:
             return exportPayloadData(id: id).map(RenderingContent.data) ?? .none
@@ -107,7 +107,7 @@ extension ResultFile {
     }
 
     func exportLogsContent(id: String,
-                           renderingMode: Summary.RenderingMode) -> RenderingContent {
+                           renderingMode: RenderingMode) -> RenderingContent {
         switch renderingMode {
         case .inline:
             return exportLogsData(id: id).map(RenderingContent.data) ?? .none

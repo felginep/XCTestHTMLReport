@@ -70,22 +70,22 @@ struct Test: HTML
         return a == 0 ? subTests.count : a
     }
 
-    init(group: ActionTestSummaryGroup, file: ResultFile, renderingMode: Summary.RenderingMode) {
+    init(group: ActionTestSummaryGroup, file: ResultFile, configuration: Configuration) {
         self.uuid = NSUUID().uuidString
         self.identifier = group.identifier
         self.duration = group.duration
         self.name = group.name
         if group.subtests.isEmpty {
-            self.subTests = group.subtestGroups.map { Test(group: $0, file: file, renderingMode: renderingMode) }
+            self.subTests = group.subtestGroups.map { Test(group: $0, file: file, configuration: configuration) }
         } else {
-            self.subTests = group.subtests.map { Test(metadata: $0, file: file, renderingMode: renderingMode) }
+            self.subTests = group.subtests.map { Test(metadata: $0, file: file, configuration: configuration) }
         }
         self.objectClass = .testSummaryGroup
         self.activities = []
         self.status = .unknown // ???: Usefull?
     }
 
-    init(metadata: ActionTestMetadata, file: ResultFile, renderingMode: Summary.RenderingMode) {
+    init(metadata: ActionTestMetadata, file: ResultFile, configuration: Configuration) {
         self.uuid = NSUUID().uuidString
         self.identifier = metadata.identifier
         self.duration = metadata.duration ?? 0
@@ -96,7 +96,7 @@ struct Test: HTML
         if let id = metadata.summaryRef?.id,
             let actionTestSummary = file.getActionTestSummary(id: id) {
             self.activities = actionTestSummary.activitySummaries.map {
-                Activity(summary: $0, file: file, padding: 20, renderingMode: renderingMode)
+                Activity(summary: $0, file: file, padding: 20, configuration: configuration)
             }
         } else {
             self.activities = []
